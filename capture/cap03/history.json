@@ -1,0 +1,29 @@
+{
+  "baseline": {
+    "protected_counterexamples": {
+      "revoked_mandate_must_block_effect": true,
+      "direct_bypass_must_be_detected": true,
+      "compromised_receipt_must_be_detected": true
+    }
+  },
+  "amendments": [
+    {
+      "id": "AMEND-001",
+      "detected": {
+        "revoked_mandate_must_block_effect": false
+      }
+    },
+    {
+      "id": "AMEND-002",
+      "detected": {
+        "direct_bypass_must_be_detected": false
+      }
+    },
+    {
+      "id": "AMEND-003",
+      "detected": {
+        "revoked_mandate_must_block_effect": true
+      }
+    }
+  ]
+}
