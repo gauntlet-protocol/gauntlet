@@ -62,7 +62,7 @@ def verify_production(bundle, trust, manifest):
         result = verify(core, internal)
         if result["status"] != "VERIFIED_EFFECT":
             return result
-        return {"status":"PRODUCTION_EFFECT_PROOF","effect_id":result["effect_id"],
-                "evidence_sha256":sha(bundle), "limits":"attested digital source facts, not physical outcome"}
+        return {"status":"PRODUCTION_EVIDENCE_CONSISTENT","effect_id":result["effect_id"],
+                "evidence_sha256":sha(bundle), "limits":"synthetic attestation compatibility only; live production effects not independently proven"}
     except (KeyError,TypeError,ValueError,OverflowError):
         return {"status":"INSUFFICIENT_EVIDENCE","reasons":["MALFORMED_PRODUCTION_PROOF"]}
