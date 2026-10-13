@@ -39,7 +39,7 @@ class ProductionProofTests(unittest.TestCase):
     def check(self):
         return verify_production(self.bundle,self.trust,self.manifest)
     def test_attested_digital_production_effect(self):
-        self.assertEqual(self.check()["status"],"PRODUCTION_EFFECT_PROOF")
+        self.assertEqual(self.check()["status"],"PRODUCTION_EVIDENCE_CONSISTENT")
     def test_test_environment_substitution(self):
         p=copy.deepcopy(self.bundle["environment"]["payload"])
         p["class"]="test"
