@@ -1,0 +1,17 @@
+name: EB-01 effect boundary conformance
+on:
+  push:
+  pull_request:
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install Ed25519 verification dependency
+        run: python -m pip install 'cryptography>=44,<47'
+      - name: Run effect boundary tests
+        working-directory: conformance
+        run: python -m unittest discover -p 'test_*.py' -v
