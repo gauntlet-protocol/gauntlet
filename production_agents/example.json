@@ -1,0 +1,166 @@
+{
+  "cases": [
+    {
+      "question": "Q01",
+      "material_effect": false,
+      "evidence": {
+        "per_task_token_budget": true,
+        "context_growth_bound": true,
+        "budget_enforced": true
+      }
+    },
+    {
+      "question": "Q02",
+      "material_effect": false,
+      "evidence": {
+        "external_state": true,
+        "queue_backpressure": true,
+        "load_test_100k": true
+      }
+    },
+    {
+      "question": "Q03",
+      "material_effect": false,
+      "evidence": {
+        "session_isolation": true,
+        "versioned_updates": true,
+        "conflict_test": true
+      }
+    },
+    {
+      "question": "Q04",
+      "material_effect": false,
+      "evidence": {
+        "failure_classified": true,
+        "recovery_checkpoint": true,
+        "effect_reconciled": true
+      }
+    },
+    {
+      "question": "Q05",
+      "material_effect": false,
+      "evidence": {
+        "correlated_trace": true,
+        "redacted_inputs": true,
+        "trace_integrity": true
+      }
+    },
+    {
+      "question": "Q06",
+      "material_effect": false,
+      "evidence": {
+        "stage_p95": true,
+        "quality_regression_test": true,
+        "measured_bottleneck": true
+      }
+    },
+    {
+      "question": "Q07",
+      "material_effect": false,
+      "evidence": {
+        "error_metrics": true,
+        "quality_metrics": true,
+        "alert_test": true
+      }
+    },
+    {
+      "question": "Q08",
+      "material_effect": false,
+      "evidence": {
+        "dependency_graph": true,
+        "bounded_concurrency": true,
+        "shared_write_fencing": true
+      }
+    },
+    {
+      "question": "Q09",
+      "material_effect": false,
+      "evidence": {
+        "durable_queue": true,
+        "job_state_machine": true,
+        "crash_recovery_test": true
+      }
+    },
+    {
+      "question": "Q10",
+      "material_effect": false,
+      "evidence": {
+        "route_policy": true,
+        "quality_gate": true,
+        "fallback_test": true
+      }
+    },
+    {
+      "question": "Q11",
+      "material_effect": false,
+      "evidence": {
+        "p50_p95_by_stage": true,
+        "queue_latency": true,
+        "token_latency": true
+      }
+    },
+    {
+      "question": "Q12",
+      "material_effect": false,
+      "evidence": {
+        "capability_registry": true,
+        "budget_gate": true,
+        "quality_floor": true
+      }
+    },
+    {
+      "question": "Q13",
+      "material_effect": false,
+      "evidence": {
+        "retry_limit": true,
+        "idempotency_binding": true,
+        "unknown_effect_reconciliation": true
+      }
+    },
+    {
+      "question": "Q14",
+      "material_effect": false,
+      "evidence": {
+        "worker_isolation": true,
+        "load_balancing": true,
+        "cross_worker_consistency": true
+      }
+    },
+    {
+      "question": "Q15",
+      "material_effect": false,
+      "evidence": {
+        "frozen_test_set": true,
+        "version_comparison": true,
+        "drift_alert": true
+      }
+    },
+    {
+      "question": "Q16",
+      "material_effect": false,
+      "evidence": {
+        "fallback_trigger": true,
+        "safe_degradation": true,
+        "fallback_validation": true
+      }
+    },
+    {
+      "question": "Q17",
+      "material_effect": false,
+      "evidence": {
+        "misuse_signals": true,
+        "authorization_alert": true,
+        "blocked_call_audit": true
+      }
+    },
+    {
+      "question": "Q18",
+      "material_effect": false,
+      "evidence": {
+        "request_token_cap": true,
+        "spent_tokens_metered": true,
+        "overrun_blocked": true
+      }
+    }
+  ]
+}
