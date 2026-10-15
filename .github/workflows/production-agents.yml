@@ -1,0 +1,22 @@
+name: Production agent conformance
+on:
+  push:
+    paths:
+      - 'production_agents/**'
+      - '.github/workflows/production-agents.yml'
+  pull_request:
+    paths:
+      - 'production_agents/**'
+      - '.github/workflows/production-agents.yml'
+jobs:
+  conformance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Regression tests
+        run: python -m unittest discover -s production_agents/tests -v
+      - name: Complete 18-question positive example
+        run: python -m production_agents.conformance production_agents/example.json
