@@ -41,3 +41,6 @@ Badge is a rendering of a verified attestation lookup, not the evidence itself. 
 
 ## Architectural boundary
 Rust CLI/runner/verifier/badge core; optional Python challenge adapters via process protocol; no mandatory VALO Kernel or external agent runtime. Local E2E test evidence and clean-checkout independent reproduction required before public release.
+
+## Federated authorization requirement
+Normative: `preview/ADR-0002-federated-trust.md` (relative to repository root). Founding Builder membership and evaluator certification never grant attestation authority. The Rust verifier must validate explicit scoped delegation, independent evaluator identity, full authorization chain, conflict exclusions, evaluation-time validity, current revocation/freshness and separate ATTESTED versus external ACCREDITED claims. Pass `preview/TRUST_TEST_MATRIX.md` locally before public badge issuance. This is not yet implemented.
