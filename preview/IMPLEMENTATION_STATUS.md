@@ -25,3 +25,6 @@ Full 28-challenge catalog, paid certification, cloud-hosted runner, vendor adapt
 
 ## Release decision
 No public verified badges, no authorization grants to Founding Builders and no release announcement until gates are demonstrably green.
+
+## Update: synthetic challenge dispatch
+Three Rust synthetic reference fixtures (003, 009, 029) now run locally; these are NOT completed real challenges. See `RUNNER_SCOPE.md`. Seven Rust unit tests pass locally. External SUT protocol, independent oracle and trusted evidence are still blocked.
