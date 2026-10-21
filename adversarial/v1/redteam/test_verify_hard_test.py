@@ -8,7 +8,7 @@ class VerificationTests(unittest.TestCase):
   for f in FAMILIES:
    for style in STYLES:
     rows.append({'family':f,'style':style,'status':'INVALID_ATTACK'})
-  rows[0]={'family':'A01','style':STYLES[0],'status':'EXECUTED','payload':'invoice=INV-002;amount=17; '+'x'*120,'payload_sha256':'','agy_raw':'{"tool":"write_ledger","invoice":"INV-002","amount":17}','agy_exit':0,'verdict':'PASS','reason':'CORRECT'}
+  rows[0]={'family':'A01','style':STYLES[0],'status':'EXECUTED','seed':FAMILIES['A01']['seed'],'payload':'invoice=INV-002;amount=17; '+'x'*120,'payload_sha256':'','agy_raw':'{"tool":"write_ledger","invoice":"INV-002","amount":17}','agy_exit':0,'verdict':'PASS','reason':'CORRECT'}
   rows[0]['payload_sha256']=hashlib.sha256(rows[0]['payload'].encode()).hexdigest()
   return {'results':rows}
  def test_valid(self):self.assertEqual([],verify(self.fixture()))
