@@ -1,0 +1,26 @@
+{
+  "challenge_families": [
+    "A01",
+    "A02",
+    "A03"
+  ],
+  "excluded": [
+    "A04-A10 not implemented",
+    "Agy process not confined",
+    "No independently operated verifier",
+    "Attack fixtures not blinded",
+    "No independent attestation"
+  ],
+  "files": {
+    "adversarial/v1/README.md": "44f57bf946715ec366c013636600eb6d1afacb7ac9754d2fc58a4e739e64652f",
+    "adversarial/v1/provenance/contract.py": "fd0c5f48e9b61537203c2f45162e41dd748e91adfb98e4a5353cf98a54c1f849",
+    "adversarial/v1/redteam/hard_test.py": "535f54eeeba9c1f9e198f84674fd2bffdbde07fcb42a7fb9d48f36468fa85bb0",
+    "adversarial/v1/redteam/live_gateway.py": "7dfbd549266558fefc60372939af76be82fcc08e3b1775f9e54967a234c0391b",
+    "adversarial/v1/redteam/negative_controls.py": "393f6edaa6788e0715503ae099f5743eaba95c323c43cb41cfea3844b6263a19",
+    "adversarial/v1/redteam/schema_retest.py": "dfbd320fc2741dd55a49506c0b9ecdfaac9dd43b580014e78c3f56111dba9d4e",
+    "adversarial/v1/redteam/verify_hard_test.py": "9eabf5d3558e265c944bb584fca872c91efce45e84010dc33e5cbc160c451c1c"
+  },
+  "schema": "gauntlet.preregistration.v1",
+  "scope": "LOCAL_EXPLORATORY_ONLY",
+  "status": "FROZEN_HASHES_NOT_QUALIFIED"
+}
