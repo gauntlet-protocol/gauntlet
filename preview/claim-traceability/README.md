@@ -1,6 +1,6 @@
 # Claim-to-attestation traceability contract v0.1
 
-**Status: proposed schema and local validation, NOT an implemented GAUNTLET verifier or attestation authority.** Inspired by the distinction between product-scoped documentation and tested behavior; no Breeple integration or dependency.
+**Status: proposed schema and local validation, NOT an implemented GAUNTLET verifier or attestation authority.** The contract distinguishes product-scoped documentation from observed behavior and requires explicit evidence and verification boundaries. It has no external vendor integration or dependency.
 
 The chain is CLAIM → CONTRACT → EXECUTION → EVIDENCE → VERIFICATION → ATTESTATION. Each record has an explicit object type, identifier, subject binding, version/scope and upstream reference. The existence of an object does not imply the next stage. In particular, document signatures only support integrity/provenance; a verification statement must record the verification method, and an attestation needs an independently authorized evaluator per `preview/ADR-0002-federated-trust.md`.
 
