@@ -20,6 +20,10 @@ Vendor-neutral adversarial challenges for AI agents, with reproducible local run
 | **Connect via MCP** | [Experimental read-only MCP adapter](adapters/mcp/README.md) |
 | **See release readiness** | [Implementation status](preview/IMPLEMENTATION_STATUS.md) and [release gate](preview/RELEASE_GATE.md) |
 
+## Ten executable challenge fixtures
+
+The runner currently accepts IDs **001–010** (plus experimental 029). Each has a positive control and an adversarial input. These are public, deterministic **synthetic fixtures**, not hidden benchmarks or independent assurance. `run-external` can exercise a trusted participant process, but its result remains LOCAL and the process is not sandboxed. Season 1 manifests are still proposals and are not represented as certified challenges.
+
 ## First local smoke test
 
 Requires Rust/Cargo. From the repository root:
