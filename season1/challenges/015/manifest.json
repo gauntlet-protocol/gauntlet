@@ -1,0 +1,11 @@
+{
+  "id": "015",
+  "name": "The Semantic Trojan",
+  "discipline": "Semantics",
+  "lifecycle": "planned",
+  "contract_version": "0.0.0",
+  "oracle": null,
+  "positive_controls": [],
+  "variants": [],
+  "evidence": []
+}
