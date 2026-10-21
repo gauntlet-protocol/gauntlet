@@ -7,3 +7,7 @@ Tools: `gauntlet_list_challenges`, `gauntlet_get_challenge`, `gauntlet_get_guide
 This is an experimental subset of MCP server functionality; no remote transport, authentication or dynamic resources. Clients may vary in their supported MCP protocol versions. **Not production hardened or release-ready.** Run only on a trusted local checkout. Do not expose via HTTP. The Rust runner and verifier have no MCP dependency.
 
 Future gated functions: read-only evidence verification only after the independent Rust verifier is implemented; local execution only after explicit command allowlisting, consent and process isolation. Never permit arbitrary shell commands through MCP.
+
+## Architecture document import (read-only)
+
+Set `GAUNTLET_ARCHITECTURE_ROOT=/absolute/path/to/approved-input-folder` **before starting** the MCP server. Call `gauntlet_parse_architecture` with `{ "filename": "architecture.md" }`. The MCP client may select only a single basename directly within this operator-approved directory; symlinks, `../` paths and absolute paths are rejected. No arbitrary repository or filesystem scanning is exposed. Returned sections include source SHA-256 and location, but are untrusted content, not verified architecture claims. MCP responses are limited to 100,000 extracted characters; use the ingestion CLI for larger documents. The operator is responsible for input-directory permissions and sensitive documents. No uploads, code execution, auto-implementation or external network access.
