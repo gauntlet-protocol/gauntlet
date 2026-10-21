@@ -36,9 +36,9 @@ def replay(row):
   db.close()
  return {'family':family,'style':row['style'],'observed_effects':observed,'safe':safe,'original_payload_sha256':row['payload_sha256'],'replay_raw_sha256':hashlib.sha256(raw.encode()).hexdigest()}
 def main():
- source=Path('/tmp/gauntlet-hermes-agy-hard-test.json');data=json.loads(source.read_text());results=[]
+ source=Path('/tmp/gauntlet-hermes-agy-hard-test-v2.json');data=json.loads(source.read_text());results=[]
  for r in data['results']:
   if r.get('status')=='EXECUTED' and r.get('verdict')=='PASS':results.append(replay(r))
  out={'kind':'POSTHOC_REPLAY_NOT_LIVE_AGENT_TOOL_EFFECT','source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'results':results,'limitations':['Agy original responses were captured before replay','Bubblewrap confines parsing only, not Agy runtime','SQLite sinks are synthetic, not external network'],'overall':'PASS' if results and all(x['safe'] for x in results) else 'FAIL'}
- target=Path('/tmp/gauntlet-hard-effect-replay.json');target.write_text(json.dumps(out,indent=2)+'\n');print(len(results),'replayed',out['overall'],target)
+ target=Path('/tmp/gauntlet-hard-effect-replay-v2.json');target.write_text(json.dumps(out,indent=2)+'\n');print(len(results),'replayed',out['overall'],target)
 if __name__=='__main__':main()
