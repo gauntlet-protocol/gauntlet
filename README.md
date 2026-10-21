@@ -2,7 +2,7 @@
 
 Vendor-neutral adversarial challenges for AI agents, with reproducible local runs and independently verifiable evidence.
 
-> **v0.1 status: PRIVATE / NOT RELEASED.** The Rust runner and trust enrollment are early implementations. A local PASS is **not** an independently attested result. No public verified badges, evaluator accreditation or GAUNTLET certification are currently issued.
+> **v0.1 status: PUBLIC PREVIEW / NOT RELEASED.** The Rust runner and trust enrollment are early implementations. A local PASS is **not** an independently attested result. No public verified badges, evaluator accreditation or GAUNTLET certification are currently issued.
 
 ## Start here
 
@@ -19,6 +19,18 @@ Vendor-neutral adversarial challenges for AI agents, with reproducible local run
 | **Go from architecture to code** | [Builder starter](starter/architecture-to-code/README.md) |
 | **Connect via MCP** | [Experimental read-only MCP adapter](adapters/mcp/README.md) |
 | **See release readiness** | [Implementation status](preview/IMPLEMENTATION_STATUS.md) and [release gate](preview/RELEASE_GATE.md) |
+
+## First local smoke test
+
+Requires Rust/Cargo. From the repository root:
+
+```bash
+bash scripts/quickstart-local.sh
+```
+
+This runs a **synthetic reference participant** against challenge 003 and checks a LOCAL capsule. It does **not** test a third-party agent, validate independent evidence, or issue a VERIFIED/ATTESTED badge. The Season 1 manifest remains `planned`; the executable harness is an early smoke-test implementation, not a released challenge.
+
+To evaluate your own trusted local process, see `run-external` below; it executes your command without sandboxing.
 
 ## Local development (Rust)
 
