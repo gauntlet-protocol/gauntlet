@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/gauntlet-protocol/gauntlet/blob/main/preview/claim-traceability/claim-chain.schema.json",
+  "title": "GAUNTLET claim traceability exchange v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["format", "subject", "records"],
+  "properties": {
+    "format": {"const": "gauntlet-claim-chain-v0.1"},
+    "subject": {
+      "type": "object", "additionalProperties": false,
+      "required": ["product_id", "product_version", "environment_id"],
+      "properties": {"product_id": {"type": "string", "minLength": 1}, "product_version": {"type": "string", "minLength": 1}, "environment_id": {"type": "string", "minLength": 1}}
+    },
+    "records": {"type": "array", "items": {"$ref": "#/$defs/record"}}
+  },
+  "$defs": {
+    "record": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "kind", "subject", "scope", "version", "source_ref", "upstream_id"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "kind": {"enum": ["CLAIM", "CONTRACT", "EXECUTION", "EVIDENCE", "VERIFICATION", "ATTESTATION"]},
+        "subject": {"$ref": "#/$defs/subject"},
+        "scope": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "source_ref": {"type": "string", "minLength": 1},
+        "upstream_id": {"type": ["string", "null"]}
+      }
+    },
+    "subject": {"type": "object", "additionalProperties": false, "required": ["product_id", "product_version", "environment_id"], "properties": {"product_id": {"type": "string", "minLength": 1}, "product_version": {"type": "string", "minLength": 1}, "environment_id": {"type": "string", "minLength": 1}}}
+  }
+}
