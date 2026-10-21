@@ -19,6 +19,13 @@ Authority, Semantics, Effects, Tools, Communication, Memory/Knowledge. Cross-cut
 ## Cross-cutting profiles
 - `profiles/language-speech.md`: multilingual, speech, cross-modal and audio-injection test profiles; planned only.
 
+## Research adoption and protocol
+- `adoption/README.md`: prioritized upstream research adoption matrix.
+- `adoption/decision-gates.md`: license, reproducibility and interoperability gates.
+- `adoption/sources.md`: upstream source candidates for verification.
+- `contracts/challenge-protocol.md`: neutral challenge protocol proposal.
+- `contracts/evidence-levels.md`: independent evidence assurance L0–L3.
+
 ## Next
 Implement one challenge at a time with a threat model, public/hidden variants, independent oracle, positive controls, evidence requirements and reproducible runner. Keep VALO/HEIMEL outside the core as optional systems under test.
 
