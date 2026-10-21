@@ -30,3 +30,6 @@ Policy: Open Policy Agent, Cedar. Security: NVIDIA NeMo Guardrails, Lakera Guard
 
 ## Growth measurement
 Track qualified candidates, confirmed technical integrations, independent reproductions, repeat evaluation by distinct organizations, and procurement usage. Do not count GitHub stars or badges alone as verified adoption.
+
+## Federated authorization requirement
+Normative: `preview/ADR-0002-federated-trust.md` (relative to repository root). Founding Builder membership and evaluator certification never grant attestation authority. The Rust verifier must validate explicit scoped delegation, independent evaluator identity, full authorization chain, conflict exclusions, evaluation-time validity, current revocation/freshness and separate ATTESTED versus external ACCREDITED claims. Pass `preview/TRUST_TEST_MATRIX.md` locally before public badge issuance. This is not yet implemented.
