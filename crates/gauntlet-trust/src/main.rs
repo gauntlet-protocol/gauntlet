@@ -16,13 +16,41 @@ struct Request {
     proof_of_possession_hex: String,
 }
 fn bytes(subject: &str, key: &str, challenges: &[String], nonce: &str) -> Vec<u8> {
-    format!("GAUNTLET-KEY-REQUEST-v0.1\n{}\n{}\n{}\n{}", subject, key, challenges.join(","), nonce).into_bytes()
+    format!(
+        "GAUNTLET-KEY-REQUEST-v0.1\n{}\n{}\n{}\n{}",
+        subject,
+        key,
+        challenges.join(","),
+        nonce
+    )
+    .into_bytes()
 }
 fn verify_request(r: &Request) -> Result<(), String> {
-    if r.protocol != "gauntlet-key-request-v0.1" || r.subject.trim().is_empty() || r.nonce.len() < 16 || r.challenges.is_empty() || r.challenges.iter().any(|c| c.trim().is_empty() || c.contains(',')) { return Err("invalid request fields".into()); }
-    let pk: [u8; 32] = hex::decode(&r.public_key_hex).map_err(|_| "invalid public key")?.try_into().map_err(|_| "invalid public key length")?;
-    let sig: [u8; 64] = hex::decode(&r.proof_of_possession_hex).map_err(|_| "invalid signature")?.try_into().map_err(|_| "invalid signature length")?;
-    VerifyingKey::from_bytes(&pk).map_err(|_| "invalid public key")?.verify(&bytes(&r.subject, &r.public_key_hex, &r.challenges, &r.nonce), &Signature::from_bytes(&sig)).map_err(|_| "proof of possession failed".into())
+    if r.protocol != "gauntlet-key-request-v0.1"
+        || r.subject.trim().is_empty()
+        || r.nonce.len() < 16
+        || r.challenges.is_empty()
+        || r.challenges
+            .iter()
+            .any(|c| c.trim().is_empty() || c.contains(','))
+    {
+        return Err("invalid request fields".into());
+    }
+    let pk: [u8; 32] = hex::decode(&r.public_key_hex)
+        .map_err(|_| "invalid public key")?
+        .try_into()
+        .map_err(|_| "invalid public key length")?;
+    let sig: [u8; 64] = hex::decode(&r.proof_of_possession_hex)
+        .map_err(|_| "invalid signature")?
+        .try_into()
+        .map_err(|_| "invalid signature length")?;
+    VerifyingKey::from_bytes(&pk)
+        .map_err(|_| "invalid public key")?
+        .verify(
+            &bytes(&r.subject, &r.public_key_hex, &r.challenges, &r.nonce),
+            &Signature::from_bytes(&sig),
+        )
+        .map_err(|_| "proof of possession failed".into())
 }
 fn run(args: Vec<String>) -> Result<(), String> {
     match args.iter().map(String::as_str).collect::<Vec<_>>().as_slice() {
@@ -63,7 +91,12 @@ fn run(args: Vec<String>) -> Result<(), String> {
         _ => Err("usage: gauntlet-trust key generate <private-key-path> | trust request <private-key-path> <subject> <challenge-id> <output.json> | trust verify-request <request.json>".into()),
     }
 }
-fn main() { if let Err(e) = run(env::args().skip(1).collect()) { eprintln!("{e}"); std::process::exit(1); } }
+fn main() {
+    if let Err(e) = run(env::args().skip(1).collect()) {
+        eprintln!("{e}");
+        std::process::exit(1);
+    }
+}
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -74,14 +107,28 @@ mod tests {
         let cs = vec!["GAUNTLET-003".to_string()];
         let nonce = "0123456789abcdef".to_string();
         let sig = hex::encode(key.sign(&bytes("evaluator", &pk, &cs, &nonce)).to_bytes());
-        let mut r = Request { protocol: "gauntlet-key-request-v0.1".into(), subject: "evaluator".into(), public_key_hex: pk, challenges: cs, nonce, proof_of_possession_hex: sig };
+        let mut r = Request {
+            protocol: "gauntlet-key-request-v0.1".into(),
+            subject: "evaluator".into(),
+            public_key_hex: pk,
+            challenges: cs,
+            nonce,
+            proof_of_possession_hex: sig,
+        };
         assert!(verify_request(&r).is_ok());
         r.subject = "another-evaluator".into();
         assert!(verify_request(&r).is_err());
     }
     #[test]
     fn empty_scope_rejected() {
-        let r = Request { protocol: "gauntlet-key-request-v0.1".into(), subject: "x".into(), public_key_hex: "00".repeat(32), challenges: vec![], nonce: "0123456789abcdef".into(), proof_of_possession_hex: "00".repeat(64) };
+        let r = Request {
+            protocol: "gauntlet-key-request-v0.1".into(),
+            subject: "x".into(),
+            public_key_hex: "00".repeat(32),
+            challenges: vec![],
+            nonce: "0123456789abcdef".into(),
+            proof_of_possession_hex: "00".repeat(64),
+        };
         assert!(verify_request(&r).is_err());
     }
 }
