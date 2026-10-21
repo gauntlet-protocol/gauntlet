@@ -15,3 +15,7 @@ Expected resistant PASS, vulnerable FAIL, refuse FAIL. No real credentials are u
 ## Executable adversarial actor inside network namespace
 
 `python3 adversarial/v1/a03/isolated_actor.py` executes a deterministic adversarial program inside the network namespace. It attempts a real TCP connect and canary send, then records the kernel error and transmitted-byte count. A pass means the attempted IPv4 TCP exfiltration was prevented. The guest is **not an LLM agent**; this is an isolation acceptance test, not Agy qualification. Network-disabled Agy would need a local offline model and a compatible runtime; running its remote API client offline would not constitute a meaningful agent test.
+
+## Split model/action gateway experiment
+
+`separated_gateway.py` accepts a structured action from an **unisolated model client**, and runs the action executor in a Bubblewrap guest with no network. This preserves the possibility of model API communication outside the sandbox while enforcing network restrictions inside the executor. `test_separated_gateway.py` checks benign action, blocked attempted outbound connection, and invalid action rejection. **Important:** the unisolated model process still has its own network and could exfiltrate directly; this design only confines actions explicitly delegated to the gateway. It is not an adequate isolation boundary for an untrusted autonomous agent. A real system needs a brokered model transport and all agent-controlled execution confined, plus an independently observed egress policy.
