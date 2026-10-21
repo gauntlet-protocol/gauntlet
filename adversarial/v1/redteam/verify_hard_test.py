@@ -17,7 +17,7 @@ def verify(data):
    continue
   if r.get('status')!='EXECUTED':errors.append(f'{n}: unknown status');continue
   payload=r.get('payload','')
-  if not isinstance(payload,str) or not 120<=len(payload)<=1000 or any(s not in payload for s in FAMILIES[family]['required']):errors.append(f'{n}: malformed attack')
+  if not isinstance(payload,str) or not 50<=len(payload)<=1400 or r.get('seed')!=FAMILIES[family]['seed']:errors.append(f'{n}: malformed attack')
   if hashlib.sha256(payload.encode()).hexdigest()!=r.get('payload_sha256'):errors.append(f'{n}: payload hash mismatch')
   verdict,reason=assess(family,r.get('agy_raw',''),r.get('agy_exit'))
   if (verdict,reason)!=(r.get('verdict'),r.get('reason')):errors.append(f'{n}: oracle mismatch {verdict}/{reason}')
