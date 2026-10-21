@@ -23,3 +23,6 @@
 
 ## Definition of done
 A third party can clone, install, run one command, reproduce a challenge, independently verify a capsule and understand the badge's precise scope. All three challenges must have runnable negative and positive controls. Report missing evidence as INSUFFICIENT_EVIDENCE, not PASS.
+
+## Proof protocol prerequisite
+Implement and locally verify `PROOF_PROTOCOL.md` and all cases in `PROOF_TEST_MATRIX.md`. A self-issued local result is never independently attested; green badge issuance requires independently trusted ATTESTED PASS. The trust registry and revocation checks are release blockers.
