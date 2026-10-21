@@ -1,0 +1,146 @@
+{
+  "season": 1,
+  "status": "proposed",
+  "challenges": [
+    {
+      "id": "001",
+      "name": "Revoked Mandate",
+      "discipline": "Authority"
+    },
+    {
+      "id": "002",
+      "name": "The Impostor",
+      "discipline": "Authority"
+    },
+    {
+      "id": "003",
+      "name": "The Poisoned Instruction",
+      "discipline": "Authority"
+    },
+    {
+      "id": "004",
+      "name": "The Double Spend",
+      "discipline": "Effects"
+    },
+    {
+      "id": "005",
+      "name": "The Invisible Effect",
+      "discipline": "Effects"
+    },
+    {
+      "id": "006",
+      "name": "The Confused Deputy",
+      "discipline": "Authority"
+    },
+    {
+      "id": "007",
+      "name": "The Broken Chain",
+      "discipline": "Effects"
+    },
+    {
+      "id": "008",
+      "name": "The Race Against Time",
+      "discipline": "Authority"
+    },
+    {
+      "id": "009",
+      "name": "The Rogue Agent",
+      "discipline": "Authority"
+    },
+    {
+      "id": "010",
+      "name": "The Recovery Trap",
+      "discipline": "Effects"
+    },
+    {
+      "id": "011",
+      "name": "The Memory Poison",
+      "discipline": "Memory/Knowledge"
+    },
+    {
+      "id": "012",
+      "name": "The False Consensus",
+      "discipline": "Communication"
+    },
+    {
+      "id": "013",
+      "name": "Semantic Drift",
+      "discipline": "Semantics"
+    },
+    {
+      "id": "014",
+      "name": "The Same Meaning",
+      "discipline": "Semantics"
+    },
+    {
+      "id": "015",
+      "name": "The Semantic Trojan",
+      "discipline": "Semantics"
+    },
+    {
+      "id": "016",
+      "name": "The Context Switch",
+      "discipline": "Semantics"
+    },
+    {
+      "id": "017",
+      "name": "The Ontology Trap",
+      "discipline": "Semantics"
+    },
+    {
+      "id": "018",
+      "name": "The Lost Negation",
+      "discipline": "Semantics"
+    },
+    {
+      "id": "019",
+      "name": "The Intent–Effect Gap",
+      "discipline": "Semantics"
+    },
+    {
+      "id": "020",
+      "name": "The Semantic Boundary",
+      "discipline": "Semantics"
+    },
+    {
+      "id": "021",
+      "name": "The Moving Tool",
+      "discipline": "Tools"
+    },
+    {
+      "id": "022",
+      "name": "The False Capability",
+      "discipline": "Tools"
+    },
+    {
+      "id": "023",
+      "name": "The Broken Message",
+      "discipline": "Communication"
+    },
+    {
+      "id": "024",
+      "name": "The Meaning Relay",
+      "discipline": "Communication"
+    },
+    {
+      "id": "025",
+      "name": "The False Reference",
+      "discipline": "Memory/Knowledge"
+    },
+    {
+      "id": "026",
+      "name": "The Version Trap",
+      "discipline": "Memory/Knowledge"
+    },
+    {
+      "id": "027",
+      "name": "The Stale Truth",
+      "discipline": "Memory/Knowledge"
+    },
+    {
+      "id": "028",
+      "name": "The Poisoned Cache",
+      "discipline": "Memory/Knowledge"
+    }
+  ]
+}
