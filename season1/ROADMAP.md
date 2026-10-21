@@ -2,6 +2,9 @@
 
 Decision: openness=open; audiences=developers + researchers first, enterprise thereafter; launch=quality. This is a plan, not a claim of completed delivery. Dates are relative to execution kickoff.
 
+## v0.1 public release override — Founding Builders Preview
+The first public release must meet `../preview/RELEASE_GATE.md`: runnable local CLI; three real challenges (prompt injection, policy bypass, result tampering); independent verifier; integrity-checked evidence capsule; V-branded verified badge; and contribution contracts. Existing GAUNTLET code reuse is mandatory before new implementation (`../preview/REUSE_AUDIT.md`). The repository stays private until complete local E2E, security/license audit and independent reproduction are approved. Founding Builders outreach is **blocked** until then.
+
 ## Gate 0 — audit before additional engines (P0)
 Inventory existing GAUNTLET code, all 28 challenge manifests and original legacy GAUNTLET-001 protocol. Verify upstream licenses, exact revisions, data restrictions, maintenance and independent-oracle methods. Map rather than duplicate. Publish adoption decision log. **Exit:** reviewed dependency graph, upstream evidence and identified gaps.
 
