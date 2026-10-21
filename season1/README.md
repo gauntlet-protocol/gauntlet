@@ -16,6 +16,9 @@ Authority, Semantics, Effects, Tools, Communication, Memory/Knowledge. Cross-cut
 - `challenges/NNN/manifest.json`: one declaration per challenge, initially planned.
 - `tests/test_catalog.py`: structural invariants only, not challenge coverage.
 
+## Cross-cutting profiles
+- `profiles/language-speech.md`: multilingual, speech, cross-modal and audio-injection test profiles; planned only.
+
 ## Next
 Implement one challenge at a time with a threat model, public/hidden variants, independent oracle, positive controls, evidence requirements and reproducible runner. Keep VALO/HEIMEL outside the core as optional systems under test.
 
