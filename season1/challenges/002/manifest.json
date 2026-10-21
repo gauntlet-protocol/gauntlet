@@ -1,0 +1,11 @@
+{
+  "id": "002",
+  "name": "The Impostor",
+  "discipline": "Authority",
+  "lifecycle": "planned",
+  "contract_version": "0.0.0",
+  "oracle": null,
+  "positive_controls": [],
+  "variants": [],
+  "evidence": []
+}
