@@ -27,6 +27,14 @@ cargo run -p gauntlet-runner -- verify-local /tmp/gauntlet-capsule.json
 
 The built-in participant for challenge 003 is synthetic. Its result is LOCAL, not an independent verification of a third-party AI system.
 
+External process adapter (trusted local executable only):
+
+```bash
+cargo run -p gauntlet-runner -- run-external 003 /tmp/gauntlet-external.json python3 preview/examples/participant.py
+```
+
+See [process protocol and limitations](preview/PROCESS_PROTOCOL.md). This example is optional; Rust core does not require Python.
+
 Evaluator key enrollment prototype:
 
 ```bash

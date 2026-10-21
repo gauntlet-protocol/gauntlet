@@ -1,7 +1,11 @@
 //! Synthetic local challenge harness. No claim of independent attestation.
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
-use std::{env, fs};
+use std::{
+    env, fs,
+    io::Write,
+    process::{Command, Stdio},
+};
 const CONTRACT: &str = "gauntlet-challenge-v0.1";
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -111,6 +115,62 @@ fn reference_participant(id: &str, c: &Case) -> String {
         _ => String::new(),
     }
 }
+// A participant is an external process, not an oracle. Each case is sent on stdin as
+// a versioned JSON request and must return a strict JSON response on stdout.
+// Execution is NOT sandboxed: only run commands you trust on your own machine.
+#[derive(Serialize)]
+struct ProcessRequest<'a> {
+    protocol: &'static str,
+    challenge_id: &'a str,
+    case_id: &'a str,
+    trusted_instruction: &'a str,
+    untrusted_document: &'a str,
+}
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct ProcessResponse {
+    protocol: String,
+    case_id: String,
+    answer: String,
+}
+fn external_participant(
+    id: &str,
+    case: &Case,
+    program: &str,
+    args: &[String],
+) -> Result<String, String> {
+    let mut child = Command::new(program)
+        .args(args)
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::null())
+        .spawn()
+        .map_err(|e| format!("participant launch: {e}"))?;
+    let req = ProcessRequest {
+        protocol: "gauntlet-process-v0.1",
+        challenge_id: id,
+        case_id: &case.id,
+        trusted_instruction: &case.trusted_instruction,
+        untrusted_document: &case.untrusted_document,
+    };
+    let data = serde_json::to_vec(&req).map_err(|e| e.to_string())?;
+    child
+        .stdin
+        .take()
+        .ok_or("missing stdin")?
+        .write_all(&data)
+        .map_err(|e| e.to_string())?;
+    let output = child.wait_with_output().map_err(|e| e.to_string())?;
+    if !output.status.success() || output.stdout.len() > 65536 {
+        return Err("participant failed or oversized response".into());
+    }
+    let resp: ProcessResponse = serde_json::from_slice(&output.stdout)
+        .map_err(|e| format!("invalid participant response: {e}"))?;
+    if resp.protocol != "gauntlet-process-v0.1" || resp.case_id != case.id {
+        return Err("participant response binding mismatch".into());
+    }
+    Ok(resp.answer)
+}
 fn adjudicate(cs: &[Case], obs: &[Observation]) -> &'static str {
     if obs.len() != cs.len()
         || cs
@@ -169,6 +229,18 @@ fn run() -> Result<(), String> {
             );
             Ok(())
         }
+        ["run-external", id, output, program, rest @ ..] => {
+            let cs = cases(id)?;
+            let mut observations = Vec::new();
+            for c in &cs {
+                let answer = external_participant(id, c, program, &rest.iter().map(|s| s.to_string()).collect::<Vec<_>>())?;
+                observations.push(Observation { case_id: c.id.clone(), actual_answer: answer });
+            }
+            let capsule = Capsule { protocol: CONTRACT.into(), challenge_id: id.to_string(), challenge_version: "0.1.0".into(), runner_digest: hash(include_bytes!("main.rs")), cases_sha256: hash(&serde_json::to_vec(&cs).map_err(|e| e.to_string())?), verdict: adjudicate(&cs, &observations).into(), assurance: "LOCAL".into(), observations };
+            fs::write(output, serde_json::to_vec_pretty(&capsule).map_err(|e| e.to_string())?).map_err(|e| e.to_string())?;
+            println!("{} LOCAL (external participant; no sandbox, authenticated oracle or attestation)", capsule.verdict);
+            Ok(())
+        }
         ["verify-local", path] => {
             let capsule: Capsule =
                 serde_json::from_slice(&fs::read(path).map_err(|e| e.to_string())?)
@@ -191,7 +263,7 @@ fn run() -> Result<(), String> {
             Ok(())
         }
         _ => Err(
-            "usage: gauntlet-runner run <003|009|029> <capsule.json> | verify-local <capsule.json>"
+            "usage: gauntlet-runner run <id> <capsule.json> | run-external <id> <capsule.json> <trusted-program> [args...] | verify-local <capsule.json>"
                 .into(),
         ),
     }
