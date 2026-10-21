@@ -26,3 +26,6 @@ A third party can clone, install, run one command, reproduce a challenge, indepe
 
 ## Proof protocol prerequisite
 Implement and locally verify `PROOF_PROTOCOL.md` and all cases in `PROOF_TEST_MATRIX.md`. A self-issued local result is never independently attested; green badge issuance requires independently trusted ATTESTED PASS. The trust registry and revocation checks are release blockers.
+
+## Federated authorization requirement
+Normative: `preview/ADR-0002-federated-trust.md` (relative to repository root). Founding Builder membership and evaluator certification never grant attestation authority. The Rust verifier must validate explicit scoped delegation, independent evaluator identity, full authorization chain, conflict exclusions, evaluation-time validity, current revocation/freshness and separate ATTESTED versus external ACCREDITED claims. Pass `preview/TRUST_TEST_MATRIX.md` locally before public badge issuance. This is not yet implemented.
