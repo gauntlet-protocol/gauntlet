@@ -17,6 +17,9 @@ Implement exactly one fully evaluated challenge, reconcile legacy GAUNTLET-001 n
 ## Gate 4 — researcher/developer adoption (P1)
 Open contribution guidelines, reference CLI, documentation, challenge submissions, multilingual/speech profiles, optional benchmark adapters, and community review. Publish per-challenge leaderboard without hiding critical failures. **Exit:** external contributors and independently reproduced submissions.
 
+## Parallel track — Founding Builders and BYOG (starts after protocol draft; public claims gated)
+Recruit governance LEGO builders across policy, security, identity, observability and agent frameworks. Use `ecosystem/FOUNDING_BUILDERS.md`, `ecosystem/BYOG_CONTRACT.md` and `ecosystem/OUTREACH.md`. Compare paired baseline and protected runs with positive controls, independent effect oracles, consent and local reproducibility. Candidate status is not partnership; badges require Gate 3 independent verification. **Exit:** consented pilot with independent evidence and at least two distinct SUTs; never introduce vendor SDK dependencies into core.
+
 ## Gate 5 — enterprise adoption (P1)
 Add procurement-friendly evidence bundles, controlled/private evaluation, versioned assurance reporting and independent auditing without preferential scoring. **Exit:** actual procurement or vendor-assurance use, not vanity metrics.
 
