@@ -8,6 +8,8 @@ ROOT = Path(__file__).resolve().parents[2]
 TOOLS = [
     {"name": "gauntlet_list_challenges", "description": "List public challenge IDs and lifecycle states", "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False}},
     {"name": "gauntlet_get_challenge", "description": "Get a public challenge manifest by ID", "inputSchema": {"type": "object", "properties": {"id": {"type": "string", "pattern": "^[0-9]{3}$"}}, "required": ["id"], "additionalProperties": False}},
+    {"name": "gauntlet_get_started", "description": "Get local MCP setup, runner commands and architecture-to-code starter without executing code", "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False}},
+    {"name": "gauntlet_get_starter", "description": "Read a minimal participant adapter scaffold and architecture mapping worksheet", "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False}},
     {"name": "gauntlet_get_guides", "description": "Find contribution, proof and evaluator guides", "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False}},
 ]
 
@@ -30,6 +32,10 @@ def handle(req):
             if not p.is_file():
                 return {'content': [{'type': 'text', 'text': 'Unknown public challenge ID'}], 'isError': True}
             data = json.loads(p.read_text())
+        elif name == 'gauntlet_get_started' and args == {}:
+            data = {'mcp_command': 'python3 adapters/mcp/server.py', 'adapter_docs': 'adapters/mcp/README.md', 'starter': 'starter/architecture-to-code/README.md', 'run_command': 'cargo run -p gauntlet-runner -- run-external 003 /tmp/result.json python3 /path/to/participant.py', 'verify_command': 'cargo run -p gauntlet-runner -- verify-local /tmp/result.json', 'assurance': 'LOCAL', 'release_status': 'PRIVATE / NOT RELEASED'}
+        elif name == 'gauntlet_get_starter' and args == {}:
+            data = {'guide': (ROOT/'starter/architecture-to-code/README.md').read_text(), 'participant_python': (ROOT/'starter/architecture-to-code/participant.py').read_text(), 'status': 'SCAFFOLDED / NOT RUNNABLE UNTIL IMPLEMENTED'}
         elif name == 'gauntlet_get_guides' and args == {}:
             data = {'contributing': 'season1/governance/CONTRIBUTING.md', 'evaluators': 'preview/EVALUATORS.md', 'proof': 'preview/PROOF_PROTOCOL.md', 'trust': 'preview/ADR-0002-federated-trust.md', 'status': 'PRIVATE / NOT RELEASED'}
         else:

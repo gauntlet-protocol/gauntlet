@@ -15,6 +15,7 @@ Vendor-neutral adversarial challenges for AI agents, with reproducible local run
 | **Review governance** and conflicts | [Governance rules](season1/governance/GOVERNANCE.md) |
 | **Implement a challenge** | [Challenge protocol](season1/contracts/challenge-protocol.md) and [catalog](season1/README.md) |
 | **Integrate governance controls** | [BYOG contract](season1/ecosystem/BYOG_CONTRACT.md) |
+| **Go from architecture to code** | [Builder starter](starter/architecture-to-code/README.md) |
 | **Connect via MCP** | [Experimental read-only MCP adapter](adapters/mcp/README.md) |
 | **See release readiness** | [Implementation status](preview/IMPLEMENTATION_STATUS.md) and [release gate](preview/RELEASE_GATE.md) |
 
