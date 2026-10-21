@@ -36,3 +36,6 @@ North-star: **Verified Adoption** = distinct external projects that repeat a val
 
 ## Non-negotiable release gates
 No draft-as-done; no skipped-test-as-green; no synthetic evidence presented as external effect; no integration dependency in core; no leaderboard claim without versioned reproducible evidence. Every iteration must pass a separate local run and architecture boundary checks before merge.
+
+## Proof and attestation gate
+Implement `../preview/PROOF_PROTOCOL.md` and pass `../preview/PROOF_TEST_MATRIX.md` locally. Distinguish LOCAL, VERIFIED and independently ATTESTED outcomes. Only ATTESTED PASS permits the green public badge; missing trust, tampering and revocation must fail closed.
