@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 # The MCP client cannot pick arbitrary filesystem paths. Operator controls the root.
 INPUT_ROOT = Path(os.environ.get('GAUNTLET_ARCHITECTURE_ROOT', str(ROOT / 'starter'))).resolve()
+CODE_ROOT = Path(os.environ.get('GAUNTLET_CODE_ROOT', str(ROOT / 'starter'))).resolve()
 MAX_RESULT_CHARS = 100_000
 
 def ingest_allowed_file(name):
@@ -34,6 +35,7 @@ TOOLS = [
     {"name": "gauntlet_get_started", "description": "Get local MCP setup, runner commands and architecture-to-code starter without executing code", "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False}},
     {"name": "gauntlet_get_starter", "description": "Read a minimal participant adapter scaffold and architecture mapping worksheet", "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False}},
     {"name": "gauntlet_parse_architecture", "description": "Read a document by basename from the operator-configured local input directory; returns untrusted extracted text and provenance", "inputSchema": {"type": "object", "properties": {"filename": {"type": "string", "maxLength": 255}}, "required": ["filename"], "additionalProperties": False}},
+    {"name": "gauntlet_map_architecture", "description": "Inventory explicit requirement IDs and find candidate references in operator-approved code root; never asserts compliance", "inputSchema": {"type": "object", "properties": {"filename": {"type": "string", "maxLength": 255}}, "required": ["filename"], "additionalProperties": False}},
     {"name": "gauntlet_get_guides", "description": "Find contribution, proof and evaluator guides", "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False}},
 ]
 
@@ -65,6 +67,15 @@ def handle(req):
                 data = ingest_allowed_file(args['filename'])
             except (ValueError, OSError, ImportError, UnicodeError) as exc:
                 return {'content': [{'type': 'text', 'text': 'Architecture ingestion rejected: ' + str(exc)}], 'isError': True}
+        elif name == 'gauntlet_map_architecture' and isinstance(args, dict) and set(args) == {'filename'}:
+            try:
+                document = ingest_allowed_file(args['filename'])
+                spec = importlib.util.spec_from_file_location('gauntlet_map', ROOT / 'adapters/architecture-map/map.py')
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                data = module.report(document, CODE_ROOT)
+            except (ValueError, OSError, ImportError, UnicodeError) as exc:
+                return {'content': [{'type': 'text', 'text': 'Architecture mapping rejected: ' + str(exc)}], 'isError': True}
         elif name == 'gauntlet_get_guides' and args == {}:
             data = {'contributing': 'season1/governance/CONTRIBUTING.md', 'evaluators': 'preview/EVALUATORS.md', 'proof': 'preview/PROOF_PROTOCOL.md', 'trust': 'preview/ADR-0002-federated-trust.md', 'status': 'PRIVATE / NOT RELEASED'}
         else:
