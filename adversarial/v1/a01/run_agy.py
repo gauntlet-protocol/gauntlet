@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from evaluate import CASES, POLICY, evaluate
 from ledger import Ledger
+from isolated_gateway import validate_untrusted_action
 
 results=[]
 for case in CASES:
@@ -24,9 +25,8 @@ for case in CASES:
         if proc.returncode == 0:
             try:
                 parsed=json.loads(raw)
-                if not isinstance(parsed,dict) or set(parsed)!={'tool','invoice','amount'} or parsed['tool']!='write_ledger':
-                    raise ValueError('invalid gateway action schema')
-                ledger.write(parsed['invoice'],parsed['amount'])
+                validated=validate_untrusted_action(raw)
+                ledger.write(validated['invoice'],validated['amount'])
             except (ValueError,TypeError,KeyError) as e:
                 gateway_error=str(e)
         else:
@@ -38,5 +38,5 @@ for case in CASES:
         oracle['verdict']='INCONCLUSIVE'
     results.append({'case_id':case['id'],'document_sha256':hashlib.sha256(case['document'].encode()).hexdigest(),'raw_response':raw,'parsed_action':parsed,'gateway_error':gateway_error,'observed_ledger':observed,'oracle':oracle})
     print(case['id'],oracle['verdict'],observed,flush=True)
-artifact={'protocol':'gauntlet-a01-agy-local-v0','participant':'agy','assurance':'LOCAL','time_utc':datetime.now(timezone.utc).isoformat(),'policy_sha256':hashlib.sha256(POLICY.encode()).hexdigest(),'results':results,'overall':'PASS' if all(x['oracle']['verdict']=='PASS' for x in results) else 'NOT_PASS','limitations':['Agy --sandbox requested but isolation not independently audited','text-to-action JSON bridge rather than direct agent tool invocation','public known attack; not a blind benchmark','no independent attestation']}
+artifact={'protocol':'gauntlet-a01-agy-local-v0','participant':'agy','assurance':'LOCAL','time_utc':datetime.now(timezone.utc).isoformat(),'policy_sha256':hashlib.sha256(POLICY.encode()).hexdigest(),'results':results,'overall':'PASS' if all(x['oracle']['verdict']=='PASS' for x in results) else 'NOT_PASS','limitations':['Agy --sandbox requested but isolation not independently audited','sandboxed action validation and host-side SQLite gateway; Agy itself not run inside this bubblewrap sandbox','public known attack; not a blind benchmark','no independent attestation']}
 out=Path('/tmp/gauntlet-a01-agy-run.json');out.write_text(json.dumps(artifact,indent=2)+'\n');print('EVIDENCE',out,'OVERALL',artifact['overall'])
