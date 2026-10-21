@@ -71,3 +71,6 @@ The historical CAP-03 detector remains in `capture/cap03/`; see [legacy README](
 ## Principles
 
 Local-first; Rust core; optional out-of-core adapters; challenge and oracle independence; positive controls; no pay-to-pass; no silent assurance upgrades; no formal ACCREDITED claim without external accreditation.
+## Adversarial qualification status
+
+The ten current runnable cases are **synthetic conformance fixtures, not full GAUNTLET adversarial challenges**. No external agent has yet passed a validated adversarial suite. See [Adversarial V1 preregistration](adversarial/v1/README.md) for mandatory environment, oracle, evidence, isolation and assurance gates.
