@@ -1,0 +1,3 @@
+[workspace]
+members = ["crates/gauntlet-trust", "crates/gauntlet-runner"]
+resolver = "2"
