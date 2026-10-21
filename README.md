@@ -12,6 +12,7 @@ Vendor-neutral adversarial challenges for AI agents, with reproducible local run
 | **Join as a Founding Builder** | [Founding Builders program](season1/ecosystem/FOUNDING_BUILDERS.md) |
 | **Evaluate or independently verify** a run | [Proof protocol](preview/PROOF_PROTOCOL.md) and [trust architecture](preview/ADR-0002-federated-trust.md) |
 | **Become an Authorized Attestor** | [Evaluator and attestor pathway](preview/EVALUATORS.md) |
+| **Review proposed community charter** | [Charter v0.1](governance/CHARTER-v0.1.md), [GIP process](governance/GIP-PROCESS.md) and [control inventory](governance/CONTROL_INVENTORY.md) |
 | **Review governance** and conflicts | [Governance rules](season1/governance/GOVERNANCE.md) |
 | **Implement a challenge** | [Challenge protocol](season1/contracts/challenge-protocol.md) and [catalog](season1/README.md) |
 | **Integrate governance controls** | [BYOG contract](season1/ecosystem/BYOG_CONTRACT.md) |
