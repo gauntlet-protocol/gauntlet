@@ -1,5 +1,4 @@
-"""Conservative architecture requirement inventory and source-code candidate mapping."""
-import hashlib
+"""Read-only candidate mapping. No claim of architectural compliance."""
 import re
 from pathlib import Path
 
@@ -7,6 +6,10 @@ ID = re.compile(r'\b([A-Z][A-Z0-9]{1,15}[-_][0-9]{2,6})\b')
 EXT = {'.rs', '.py', '.go', '.js', '.ts', '.java', '.cs', '.cpp', '.c', '.h'}
 MAX_FILES = 300
 MAX_SOURCE_BYTES = 1_000_000
+STOP = {'must', 'shall', 'should', 'the', 'and', 'with', 'from', 'that', 'this', 'into', 'when', 'code', 'system', 'architecture', 'requirement', 'return', 'true', 'false'}
+
+def tokens(text):
+    return {x for x in re.findall(r'[a-z][a-z0-9]{3,}', text.lower().replace('_', ' ')) if x not in STOP}
 
 def report(document, repo):
     root = Path(repo).resolve()
@@ -17,7 +20,7 @@ def report(document, repo):
         for line in section['text'].splitlines():
             for match in ID.finditer(line):
                 rid = match.group(1)
-                entry = inventory.setdefault(rid, {'id': rid, 'claims': [], 'candidate_code': [], 'status': 'UNVERIFIED'})
+                entry = inventory.setdefault(rid, {'id': rid, 'claims': [], 'candidate_code': [], 'candidate_tests': [], 'semantic_candidates': [], 'status': 'UNVERIFIED'})
                 if len(entry['claims']) < 10:
                     entry['claims'].append({'location': section['location'], 'text': line[:500]})
     source = []
@@ -36,10 +39,20 @@ def report(document, repo):
             continue
         source.append((p.relative_to(root).as_posix(), content))
     for entry in inventory.values():
+        claim_terms = tokens(' '.join(x['text'] for x in entry['claims']))
         for name, content in source:
+            is_test = 'test' in Path(name).stem.lower() or any(part in {'tests', '__tests__'} for part in Path(name).parts)
             for line_no, line in enumerate(content.splitlines(), 1):
-                if entry['id'] in line and len(entry['candidate_code']) < 20:
-                    entry['candidate_code'].append({'path': name, 'line': line_no, 'snippet': line[:200]})
-        if entry['candidate_code']:
+                if entry['id'] in line:
+                    key = 'candidate_tests' if is_test else 'candidate_code'
+                    if len(entry[key]) < 20:
+                        entry[key].append({'path': name, 'line': line_no, 'snippet': line[:200]})
+                # Lexical overlap only. Require >=2 meaningful words; not semantic proof.
+                overlap = sorted(claim_terms & tokens(line))
+                if len(overlap) >= 2 and len(entry['semantic_candidates']) < 10:
+                    entry['semantic_candidates'].append({'path': name, 'line': line_no, 'overlap': overlap[:10], 'classification': 'LEXICAL_HINT_ONLY'})
+        if entry['candidate_code'] or entry['candidate_tests']:
             entry['status'] = 'CANDIDATE_REFERENCE_ONLY'
-    return {'schema': 'gauntlet-architecture-gap-v0.1', 'document_sha256': document['sha256'], 'requirements': list(inventory.values()), 'scanned_files': len(source), 'assurance': 'UNVERIFIED', 'limitations': ['Exact requirement-ID references are candidates only, not implementation evidence', 'Unreferenced requirements may still be implemented; no absence proof', 'No test execution, static analysis, or semantic architecture verification']}
+        elif entry['semantic_candidates']:
+            entry['status'] = 'LEXICAL_HINT_ONLY'
+    return {'schema': 'gauntlet-architecture-gap-v0.2', 'document_sha256': document['sha256'], 'requirements': list(inventory.values()), 'scanned_files': len(source), 'assurance': 'UNVERIFIED', 'limitations': ['Literal references and lexical overlap do not prove implementation or tests pass', 'Unreferenced requirements may still be implemented; no absence proof', 'No code execution, test execution, AST analysis or semantic model inference']}

@@ -35,7 +35,7 @@ TOOLS = [
     {"name": "gauntlet_get_started", "description": "Get local MCP setup, runner commands and architecture-to-code starter without executing code", "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False}},
     {"name": "gauntlet_get_starter", "description": "Read a minimal participant adapter scaffold and architecture mapping worksheet", "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False}},
     {"name": "gauntlet_parse_architecture", "description": "Read a document by basename from the operator-configured local input directory; returns untrusted extracted text and provenance", "inputSchema": {"type": "object", "properties": {"filename": {"type": "string", "maxLength": 255}}, "required": ["filename"], "additionalProperties": False}},
-    {"name": "gauntlet_map_architecture", "description": "Inventory explicit requirement IDs and find candidate references in operator-approved code root; never asserts compliance", "inputSchema": {"type": "object", "properties": {"filename": {"type": "string", "maxLength": 255}}, "required": ["filename"], "additionalProperties": False}},
+    {"name": "gauntlet_map_architecture", "description": "Inventory requirement IDs, lexical hints and test references in operator-approved code root; never asserts compliance", "inputSchema": {"type": "object", "properties": {"filename": {"type": "string", "maxLength": 255}}, "required": ["filename"], "additionalProperties": False}},
     {"name": "gauntlet_get_guides", "description": "Find contribution, proof and evaluator guides", "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False}},
 ]
 

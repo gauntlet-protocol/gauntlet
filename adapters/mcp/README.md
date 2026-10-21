@@ -15,3 +15,5 @@ Set `GAUNTLET_ARCHITECTURE_ROOT=/absolute/path/to/approved-input-folder` **befor
 ## Architecture-to-code candidate mapping
 
 Set `GAUNTLET_CODE_ROOT=/absolute/path/to/approved-repository` at server startup alongside `GAUNTLET_ARCHITECTURE_ROOT`. Call `gauntlet_map_architecture` with `{ "filename": "architecture.md" }`. This **read-only** operation inventories explicit requirement IDs such as `AUTH-001` and searches source files for literal references. `CANDIDATE_REFERENCE_ONLY` means a matching string was found, **not** that code implements the requirement. All results remain `UNVERIFIED`; absent references are not proof of missing implementation. No code edits, subprocesses or network calls. Repository scanning has file-size/count limits, but is not a security sandbox: use a trusted local checkout and operator-approved directories.
+
+Mapping v0.2 also distinguishes literal test-file references and lexical-overlap hints. Both are **unverified candidate links**, not successful test runs or semantic compliance.
