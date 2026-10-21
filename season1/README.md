@@ -31,6 +31,11 @@ Authority, Semantics, Effects, Tools, Communication, Memory/Knowledge. Cross-cut
 - `governance/CONTRIBUTING.md`: research/developer contribution requirements.
 - `ROADMAP.md`: quality-first release sequence, adoption milestones and measurable exit criteria.
 
+## Ecosystem adoption
+- `ecosystem/FOUNDING_BUILDERS.md`: open governance-builder participation and independence rules.
+- `ecosystem/BYOG_CONTRACT.md`: paired baseline/protected interoperability and evidence contract.
+- `ecosystem/OUTREACH.md`: consent-based pilot and outreach gates.
+
 ## Next
 Implement one challenge at a time with a threat model, public/hidden variants, independent oracle, positive controls, evidence requirements and reproducible runner. Keep VALO/HEIMEL outside the core as optional systems under test.
 
