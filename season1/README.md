@@ -26,6 +26,11 @@ Authority, Semantics, Effects, Tools, Communication, Memory/Knowledge. Cross-cut
 - `contracts/challenge-protocol.md`: neutral challenge protocol proposal.
 - `contracts/evidence-levels.md`: independent evidence assurance L0–L3.
 
+## Governance and release roadmap
+- `governance/GOVERNANCE.md`: open standard, separation of duties, independent verdicts and local-first merge gates.
+- `governance/CONTRIBUTING.md`: research/developer contribution requirements.
+- `ROADMAP.md`: quality-first release sequence, adoption milestones and measurable exit criteria.
+
 ## Next
 Implement one challenge at a time with a threat model, public/hidden variants, independent oracle, positive controls, evidence requirements and reproducible runner. Keep VALO/HEIMEL outside the core as optional systems under test.
 
