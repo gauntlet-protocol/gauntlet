@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GAUNTLET Season 1 challenge manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "discipline",
+    "lifecycle",
+    "contract_version",
+    "oracle",
+    "positive_controls",
+    "variants",
+    "evidence"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^0[0-2][0-9]$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "discipline": {
+      "enum": [
+        "Authority",
+        "Semantics",
+        "Effects",
+        "Tools",
+        "Communication",
+        "Memory/Knowledge"
+      ]
+    },
+    "lifecycle": {
+      "enum": [
+        "planned",
+        "implemented",
+        "validated",
+        "published"
+      ]
+    },
+    "contract_version": {
+      "type": "string"
+    },
+    "oracle": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "positive_controls": {
+      "type": "array"
+    },
+    "variants": {
+      "type": "array"
+    },
+    "evidence": {
+      "type": "array"
+    }
+  }
+}
