@@ -14,5 +14,8 @@ The public repository exposes Python/Node clients, schema, adapters and tests. I
 ## HEIMEL/VALO relevance
 Credential-owning effect gateway and execution receipt are suitable design references; do not import a proprietary runtime as a governance authority.
 
+## Verified public SDK checks
+On 2026-10-22, `python3 -m pytest -q tests/test_python_package.py` in a separate Armorer-Guard checkout returned **9 passed**. These tests include deny-before-dispatch and missing execution receipt behavior. This is upstream SDK test evidence only; it does not establish resistance to adversarial inputs or actual runtime enforcement.
+
 ## Status
 SDK-only evaluation; runtime unavailable, efficacy INCONCLUSIVE. No automatic adoption.
