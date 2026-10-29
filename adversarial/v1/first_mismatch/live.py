@@ -143,8 +143,9 @@ def evaluate_live(reference: Any, trace: Any, bundle: Any, trust: Any,
             "reason": diagnostic["reason"],
             "proof_status": proof_status,
             "proof_reasons": sorted(reasons),
-            "assurance": "LOCAL_EXECUTED" if profile == "local" else
-                         "PRODUCTION_EVIDENCE_CONSISTENT",
+            "assurance": ("UNVERIFIED" if proof_status == "VIOLATION" else
+                          "LOCAL_EXECUTED" if profile == "local" else
+                          "PRODUCTION_EVIDENCE_CONSISTENT"),
             "diagnostic_only": True,
             "independent_attestation": False,
         }
