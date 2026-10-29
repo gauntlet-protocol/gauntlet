@@ -157,6 +157,7 @@ class SignedTraceTests(unittest.TestCase):
         self.assertEqual(result["verdict"], "FAIL")
         self.assertEqual(result["first_mismatch"], "AUTHORITY_MISMATCH")
         self.assertEqual(result["proof_status"], "VIOLATION")
+        self.assertEqual(result["assurance"], "UNVERIFIED")
 
     def test_signed_stale_authority_is_failure(self):
         self.bundle = self.make_bundle(expires_at=15)
