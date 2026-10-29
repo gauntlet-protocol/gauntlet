@@ -10,5 +10,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - name: Run first-mismatch diagnostic controls
+      - name: Install signed-effect verification dependency
+        run: python -m pip install 'cryptography>=44,<47'
+      - name: Run first-mismatch diagnostic and signed-trace controls
         run: python3 -m unittest discover -s adversarial/v1/first_mismatch -v
